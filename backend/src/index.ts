@@ -3,6 +3,7 @@ import cors from "cors";
 import { createServer } from "http";
 import prismaClient from "./prisma";
 import sampleRouter from "./routers/sample.router";
+import registerRouter from "./routers/register.router";
 
 if (!process.env.PORT) {
     throw new Error("PORT");
@@ -26,6 +27,7 @@ app.get("/status", (req: Request, res: Response) => {
 });
 
 app.get("/", sampleRouter);
+app.post("/", registerRouter);
 
 const shutdown = () => {
     console.log("Gracefully shutting down");

@@ -1,5 +1,6 @@
 import { Response } from "express";
 import { ErrorCodes, SuccessCodes } from "../constant";
+import { stat } from "fs";
 
 interface SuccessResponseOptions {
     message?: string;
@@ -21,16 +22,17 @@ export const sendSuccessResponse = (
     successCodeKey: keyof typeof SuccessCodes = "OK",
     options: SuccessResponseOptions = {}
 ) => {
-    const status = SuccessCodes[successCodeKey];
+    const { status, code } = SuccessCodes[successCodeKey];
     const { message, data } = options;
 
     const response = {
         success: true,
+        status,
         ...(message && { message }),
         ...(data !== undefined && { body: data }),
     };
 
-    res.status(status).json(response);
+    res.status(code).json(response);
 };
 
 /**
@@ -44,13 +46,14 @@ export const sendErrorResponse = (
     statusCodeKey: keyof typeof ErrorCodes = "INTERNAL_SERVER_ERROR",
     options: ErrorResponseOptions = {}
 ) => {
-    const status = ErrorCodes[statusCodeKey];
+    const { status, code } = ErrorCodes[statusCodeKey];
     const { message } = options;
 
     const response = {
         success: false,
+        status,
         ...(message && { message }),
     };
 
-    res.status(status).json(response);
+    res.status(code).json(response);
 };
