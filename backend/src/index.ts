@@ -26,8 +26,8 @@ app.get("/status", (req: Request, res: Response) => {
     res.send({ status: "online" });
 });
 
-app.get("/", sampleRouter);
-app.post("/", registerRouter);
+app.use("/", sampleRouter);
+app.use("/register/", registerRouter);
 
 const shutdown = () => {
     console.log("Gracefully shutting down");
