@@ -6,6 +6,7 @@ class verifyService {
     public static async verify(req: Request, res: Response) {
         try {
             const { uid } = req.body;
+            console.log("verify");
 
             if (!uid) {
                 return sendErrorResponse(res, "MISSING_PARAMETERS", {
