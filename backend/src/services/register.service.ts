@@ -8,7 +8,6 @@ class registerService {
         try {
             const { userName } = req.body;
             console.log("register");
-            console.log(req);
 
             if (!userName) {
                 return sendErrorResponse(res, "MISSING_PARAMETERS", {
